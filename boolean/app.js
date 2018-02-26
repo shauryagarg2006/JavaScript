@@ -9,11 +9,11 @@ if(a){
 
 
 function greet(name){
-    console.log('Hello '+name);
+    console.log('Hello '+name); 
 }
 
 function better_greet(name){
-    name = name || '<Your Name Here>';
+    name = name || '<Your Name Here>'; 
     console.log('Hello '+name);
 }
 

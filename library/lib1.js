@@ -1,0 +1,1 @@
+var libraryName = 'MyLibrary'//can be other library files which have this variable so if we are inclulding multiple libraries then we will have a collision
