@@ -7,7 +7,7 @@ function waitThreeSeconds(){
 function clickHandler(){
     console.log('click event');
 }
-
+//Events are executed only after the global execution is finished/ nothing is on execution stack
 document.addEventListener('click',clickHandler);
 
 waitThreeSeconds();
