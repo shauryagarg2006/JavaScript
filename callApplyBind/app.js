@@ -36,7 +36,7 @@ logname.call(person,'en','es') call does not create a copy it just executes the 
 
 logname.apply(person,['en','es']); same as call but wants array of arguments
 
-
+apply and call invoke the function and bind creates the copy of the function
 
 
 */
@@ -64,6 +64,7 @@ console.log(person.getFullName.apply(person2));
 function multiply(a, b){
     return a*b;
 }
+// currying -> creating a copy of a function but with some preset parameters usually useful in mathematical situations
 
 
 var multiplyByTwo = multiply.bind(this,2); /*giving a parameter sets the permanent values in the function when the copy is made so in this case 'a' will always be two
