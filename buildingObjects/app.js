@@ -60,3 +60,6 @@ Person3.prototype.getFormalFullName = function (){
 
 console.log(jen.getFormalFullName());
 //Usually members/variables are inside function constructor and methods are on prototype as otherwise each object will have its own copy of methods thus wasting memory space
+
+
+//Start function name with a capital letter if its intended to be used as a function constructors - Some linters then can help in case we forgot the new keyword
