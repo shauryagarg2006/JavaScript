@@ -8,7 +8,7 @@ var john = new Person(); JS needed something like this to convince java develope
 
 //function constructor - a normal function used to construct object by placing new in front of it which changes this to a new blank object and returns it towards the end
 
-function Person(){
+function Person() {
     console.log(this);
     this.firstname = 'John';
     this.lastname = 'Doe';
@@ -21,16 +21,16 @@ var john = new Person(); //not just invoking Person() but it has a new keyword i
 //new will return the object which was set as the this variable
 //Only works if the above function does not return anything
 
-console.log(john); 
+console.log(john);
 
 
-function Person2(firstname, lastname){
+function Person2(firstname, lastname) {
     console.log(this);
     this.firstname = firstname;
     this.lastname = lastname;
 }
 
-var jane = new Person2('jane','dar');
+var jane = new Person2('jane', 'dar');
 console.log(jane);
 
 
@@ -41,21 +41,21 @@ console.log(jane);
 //prototype property is not __proto__
 //it is the prototype of the objects that are created using this function
 
-function Person3(firstname, lastname){
+function Person3(firstname, lastname) {
     console.log(this);
     this.firstname = firstname;
     this.lastname = lastname;
 }
-Person3.prototype.getFullName = function (){
+Person3.prototype.getFullName = function () {
     return this.firstname + ' ' + this.lastname;
 }
 
-var jen = new Person3('jen','dar');
-console.log(jen);//new will set the prototype property is where the prototype chain gets pointed  
+var jen = new Person3('jen', 'dar');
+console.log(jen); //new will set the prototype property is where the prototype chain gets pointed  
 //jen.__proto__ will point to Person3.prototype
 
-Person3.prototype.getFormalFullName = function (){
-    return 'Ms. ' +this.firstname + ' ' + this.lastname;
+Person3.prototype.getFormalFullName = function () {
+    return 'Ms. ' + this.firstname + ' ' + this.lastname;
 }
 
 console.log(jen.getFormalFullName());
@@ -63,3 +63,31 @@ console.log(jen.getFormalFullName());
 
 
 //Start function name with a capital letter if its intended to be used as a function constructors - Some linters then can help in case we forgot the new keyword
+
+
+
+
+//Builtin function constructors
+var a = new Number(3);
+console.log(a); //outputs an object not a primitive and Number will have a Number.protoype
+
+var s = new String("John");
+//String.prototype will have all the string related function which will become a.__proto__ 
+//Above we are creating objects which contains the primitive value
+
+
+//If we want to add feature to all strings in our JS code
+String.prototype.isLengthGreaterThan = function (limit) {
+    return this.length > limit;
+};
+
+console.log("John".isLengthGreaterThan(2)); //John was converted to object automatically
+
+Number.prototype.isPositive = function () {
+    this > 0;
+}
+//Error - Js will not convert number to object
+//console.log(3.isPositive());
+
+console.log(new Number(3).isPositive());
+//new Number(3)  is not a number its an object which boxes the primitive value
