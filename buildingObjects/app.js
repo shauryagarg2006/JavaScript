@@ -51,6 +51,7 @@ Person3.prototype.getFullName = function () {
 }
 
 var jen = new Person3('jen', 'dar');
+
 console.log(jen); //new will set the prototype property is where the prototype chain gets pointed  
 //jen.__proto__ will point to Person3.prototype
 
@@ -63,7 +64,6 @@ console.log(jen.getFormalFullName());
 
 
 //Start function name with a capital letter if its intended to be used as a function constructors - Some linters then can help in case we forgot the new keyword
-
 
 
 
@@ -91,3 +91,71 @@ Number.prototype.isPositive = function () {
 
 console.log(new Number(3).isPositive());
 //new Number(3)  is not a number its an object which boxes the primitive value
+
+//Arrays and forin
+//Looping through all the properteis of an object
+var arr = [1, 2, 'Jane'] // short hand for calling new Array
+for (var prop in arr) {
+    console.log(prop + ' : ' + arr[prop]);
+}
+
+Array.prototype.myCustomProp = 'cooll';
+for (var prop in arr) {
+    console.log(prop + ' : ' + arr[prop]);//Even the custom property will be printed
+}
+
+//For arrays we should iterteate on arr.length to avoid iterating down over to the prototype
+
+
+
+//Pure prototypal inheritance
+var person = {
+    firstname: 'Default',
+    lastname: 'Last',
+    greet: function () {
+        return 'Hi ' + this.firstname;
+    }
+}
+
+//In new browsers we can do this
+var john = Object.create(person);//creates an empty object with __proto__ pointing to person
+john.firstname = 'John';
+john.lastname = 'Doe';
+console.log(john.greet());
+
+//Polyfill is the code that adds a feature which the engine may lack
+if (!Object.creates) {
+    Object.creates = function (o) {
+        if (arguments.length > 1) {
+            throw new Error('Object.create implementation only acceps one parameter');
+        }
+        function F() { }
+        F.prototype = o;
+        return new F();
+    }
+}
+
+var jack = Object.creates(person);
+john.firstname = 'jack';
+john.lastname = 'Doe';
+console.log(jack);
+
+/*
+ES6 and Classes
+Class is an object in JS unlike other languages where its just a definition
+*/
+
+class PersonCls  /*extends person (extending will set the prototype __proto__)*/ {
+    constructor(firstname, lastname) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+    greet() {
+        return 'Hi ' + firstname;
+    }
+}
+
+var jelly = new PersonCls('Jelly', 'Doe');
+console.log(jelly);
+
+// ^^Syntactic sugar -> a different way to type somethign that doesnt change how it works under the hood
