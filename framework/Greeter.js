@@ -18,7 +18,8 @@ To give greetings!
     //other functions in library will have access to it because of closures
     var supportedLanguage = ['en', 'es'];
 
-    var greeting = {
+    //Informal greetings
+    var greetings = {
         en: 'Hello',
         es: 'Hola'
     }
@@ -43,7 +44,7 @@ To give greetings!
             }
         },
         greeting: function () {
-            return greeting[this.language] + ' ' + this.firstname + ' ' + this.lastname;
+            return greetings[this.language] + ' ' + this.firstname + ' ' + this.lastname;
         },
         formalGreeting: function () {
             return formalGreeting[this.language] + ' ' + this.firstname + ' ' + this.lastname;
@@ -63,13 +64,30 @@ To give greetings!
         },
         log: function () {
             if (console) {
-                console.log(logMessages[this.language] + ':' + this.lastname());
+                console.log(logMessages[this.language] + ' : ' + this.lastname);
             }
             return this;
         },
         setLang: function (lang) {
             this.language = lang;
             this.validate();
+            return this;
+        },
+        HTMLGreeting: function (selector, formal) {
+            if (!$) {
+                throw 'jQuery not loaded';
+            }
+            if (!selector) {
+                throw 'Missing jQuery Selector';
+            }
+            var msg;
+            if (formal) {
+                msg = this.formalGreeting();
+            }
+            else {
+                msg = this.greeting();
+            }
+            $(selector).html(msg);
             return this;
         }
     };
@@ -80,6 +98,8 @@ To give greetings!
         self.firstname = firstname || 'John';
         self.lastname = lastname || 'Doe';
         self.language = language || 'en';
+
+        self.validate();
     }
     Greetr.init.prototype = Greetr.prototype;
 
